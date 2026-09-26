@@ -39,8 +39,14 @@ npm run data:reset
 The deterministic test conditions are available at
 `http://127.0.0.1:4173/admin/scenarios`. They cover a one-shot transient search
 failure, duplicate visible actions, and a dismissible legacy interstitial. The
-SSN page retains only whether an operator supplied a value; it never displays or
-stores the submitted value.
+normal Edit screen includes a password-masked, human-only SSN control. It
+retains only whether an operator supplied a value and never displays or stores
+the raw submission.
+
+The visual password mask is not treated as the security boundary. Browser
+observations exclude field values, effective policy inspects the resolved
+control before every action, and automation is denied access to password/SSN
+semantics.
 
 New contacts receive server-generated sequential member IDs. The browser and
 automation never choose the identifier.
@@ -74,11 +80,15 @@ npm run capability:approve -- --capability capabilities/contact-update.draft.jso
 ```
 
 Approval covers both capability content and reviewer metadata. Any subsequent
-change invalidates the digest. The following commands will be added by later
-milestones:
+change invalidates the digest. Replay is deterministic and does not use an LLM:
 
 ```bash
-npm run replay -- --capability contact.update --member-id 12345 --phone 5550102
+npm run replay -- --capability capabilities/contact-update.approved.json --member-id M-1002 --phone 555-0299
+```
+
+The following command will be added by a later milestone:
+
+```bash
 npm run demo
 ```
 

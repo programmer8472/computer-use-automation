@@ -77,38 +77,63 @@ describe("deterministic target scenarios", () => {
     expect(await resumed.text()).not.toContain('role="dialog"');
   });
 
-  it("accepts an operator-entered SSN without retaining or returning it", async () => {
+  it("places the masked human-only SSN field directly on the edit screen", async () => {
+    const response = await fetch(`${baseUrl}/contacts/M-1002/edit`);
+    const html = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(html).toContain('name="ssn" type="password"');
+    expect(html).toContain("Social Security number (human entry only)");
+    expect(html).toContain("Current status: <strong>On file</strong>");
+    expect(html).not.toContain("Update SSN");
+
+    const detail = await fetch(`${baseUrl}/contacts/M-1002`);
+    expect(await detail.text()).not.toContain("/contacts/M-1002/ssn");
+  });
+
+  it("accepts an operator-entered SSN on edit without retaining or returning it", async () => {
     const syntheticValue = ["000", "00", "0000"].join("-");
     expect(repository.get("M-1001")?.ssnOnFile).toBe(false);
 
-    const response = await submit("/contacts/M-1001/ssn", {
+    const response = await submit("/contacts/M-1001", {
+      ...memberFields(),
       ssn: syntheticValue,
     });
     expect(response.status).toBe(303);
+    expect(response.headers.get("location")).toBe(
+      "/contacts/M-1001?updated=1&ssnUpdated=1",
+    );
     expect(repository.get("M-1001")?.ssnOnFile).toBe(true);
 
-    const detail = await fetch(`${baseUrl}/contacts/M-1001?ssnUpdated=1`);
+    const detail = await fetch(
+      `${baseUrl}/contacts/M-1001?updated=1&ssnUpdated=1`,
+    );
     const html = await detail.text();
     expect(html).not.toContain(syntheticValue);
-    expect(html).toContain("SSN status updated by the operator.");
+    expect(html).toContain("Contact and SSN status updated by the operator.");
     expect(html).toContain("On file");
   });
 
   it("does not echo an invalid sensitive value", async () => {
-    const response = await submit("/contacts/M-1001/ssn", {
+    const response = await submit("/contacts/M-1001", {
+      ...memberFields(),
       ssn: "invalid-sensitive-input",
     });
     const html = await response.text();
 
     expect(response.status).toBe(422);
     expect(html).not.toContain("invalid-sensitive-input");
+    expect(html).toContain("Enter a nine-digit value");
     expect(repository.get("M-1001")?.ssnOnFile).toBe(false);
   });
 
   it("reset clears injected scenarios and sensitive status changes", async () => {
     await activateScenario("ambiguous-actions");
     const syntheticValue = ["000", "00", "0000"].join("-");
-    await submit("/contacts/M-1001/ssn", { ssn: syntheticValue });
+    await submit("/contacts/M-1001", {
+      ...memberFields(),
+      ssn: syntheticValue,
+    });
 
     const reset = await fetch(`${baseUrl}/admin/reset`, { method: "POST" });
 
@@ -167,5 +192,15 @@ describe("deterministic target scenarios", () => {
       body: new URLSearchParams(fields),
       redirect: "manual",
     });
+  }
+
+  function memberFields(): Record<string, string> {
+    return {
+      firstName: "Avery",
+      lastName: "Jordan",
+      email: "avery.jordan@example.test",
+      phone: "555-0101",
+      address: "101 Maple Street, Northbank, NY 10001",
+    };
   }
 });

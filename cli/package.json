@@ -8,6 +8,7 @@
     "@computer-use/contracts": "0.0.0",
     "@computer-use/discovery": "0.0.0",
     "@computer-use/evidence": "0.0.0",
+    "@computer-use/replay": "0.0.0",
     "@computer-use/surface-playwright": "0.0.0",
     "playwright": "^1.63.0"
   }

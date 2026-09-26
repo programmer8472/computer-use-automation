@@ -155,8 +155,13 @@ function bindMemberIdentifier(action: Action): Action {
     throw new Error("Member selection must use an accessible link target");
   }
   first.name = "{memberId}";
-  target.rationale =
-    "Reviewed member link whose accessible name is bound to memberId";
+  target.strategies.push({
+    type: "role",
+    role: "link",
+    name: "View contact {memberId}",
+    exact: true,
+  });
+  target.rationale = "Reviewed wide and narrow member links bound to memberId";
   return { type: "click", target };
 }
 

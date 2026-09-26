@@ -2,5 +2,12 @@
   "name": "@computer-use/policy",
   "version": "0.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@computer-use/contracts": "0.0.0"
+  }
 }

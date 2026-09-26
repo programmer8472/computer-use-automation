@@ -5,6 +5,7 @@ export {
   type SurfaceAdapterOptions,
   type SurfaceObservation,
   type SurfaceObservationElement,
+  type SurfaceTargetInspection,
 } from "./adapter.js";
 export {
   AmbiguousTargetError,

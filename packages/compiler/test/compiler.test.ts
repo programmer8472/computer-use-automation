@@ -24,12 +24,23 @@ describe("capability compiler and approval", () => {
       modelCallCount: 5,
     });
     expect(draft.policy.allowedActions).toEqual(["click", "fill"]);
-    expect(draft.steps[0]?.action).toMatchObject({
-      type: "click",
-      target: {
-        strategies: [{ type: "role", role: "link", name: "{memberId}" }],
-      },
-    });
+    const firstAction = draft.steps[0]?.action;
+    expect(firstAction?.type).toBe("click");
+    if (firstAction?.type !== "click") throw new Error("Expected click step");
+    expect(firstAction.target.strategies).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: "role",
+          role: "link",
+          name: "{memberId}",
+        }),
+        expect.objectContaining({
+          type: "role",
+          role: "link",
+          name: "View contact {memberId}",
+        }),
+      ]),
+    );
     expect(draft.steps[3]).toMatchObject({
       effect: "write",
       retry: { mode: "reconcile_only", maxAttempts: 1 },

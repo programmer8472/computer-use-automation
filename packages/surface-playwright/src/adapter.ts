@@ -54,6 +54,16 @@ export interface ResolvedTarget {
   strategy: LocatorStrategy;
 }
 
+export interface SurfaceTargetInspection {
+  target: TargetLocator;
+  strategyIndex: number;
+  tag: string;
+  role: string | undefined;
+  name: string;
+  inputType: string | undefined;
+  href: string | undefined;
+}
+
 export type ActionResult =
   | { kind: "completed" }
   | { kind: "captured"; output: string; value: string }
@@ -169,6 +179,52 @@ export class PlaywrightSurfaceAdapter {
     throw new TargetNotFoundError(
       `No approved locator strategy resolved ${target.expectedCardinality} visible control`,
     );
+  }
+
+  async inspectTarget(target: TargetLocator): Promise<SurfaceTargetInspection> {
+    const resolved = await this.resolveTarget(target);
+    const facts = await resolved.locator.evaluate((element) => {
+      const htmlElement = element as HTMLElement;
+      const label =
+        htmlElement.id.length > 0
+          ? document.querySelector<HTMLLabelElement>(
+              `label[for="${CSS.escape(htmlElement.id)}"]`,
+            )?.innerText
+          : undefined;
+      const name =
+        htmlElement.getAttribute("aria-label") ??
+        label ??
+        htmlElement.innerText ??
+        htmlElement.textContent ??
+        "";
+      const inputType =
+        htmlElement instanceof HTMLInputElement ? htmlElement.type : undefined;
+      const role =
+        htmlElement.getAttribute("role") ??
+        (htmlElement instanceof HTMLAnchorElement &&
+        htmlElement.hasAttribute("href")
+          ? "link"
+          : htmlElement instanceof HTMLButtonElement
+            ? "button"
+            : htmlElement instanceof HTMLInputElement ||
+                htmlElement instanceof HTMLTextAreaElement
+              ? "textbox"
+              : undefined);
+      const href =
+        htmlElement instanceof HTMLAnchorElement ? htmlElement.href : undefined;
+      return {
+        tag: htmlElement.tagName.toLowerCase(),
+        role,
+        name: name.trim().replace(/\s+/g, " ").slice(0, 160),
+        inputType,
+        href,
+      };
+    });
+    return {
+      target: structuredClone(target),
+      strategyIndex: resolved.strategyIndex,
+      ...facts,
+    };
   }
 
   async act(

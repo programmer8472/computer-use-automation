@@ -165,7 +165,7 @@ Verify: `npm test -- compiler`
 
 ## Milestone 4: Deterministic replay
 
-### [ ] REPLAY-01 — Implement the effect-aware replay state machine
+### [x] REPLAY-01 — Implement the effect-aware replay state machine
 
 Depends on: COMPILER-01
 
@@ -185,7 +185,7 @@ Acceptance:
 
 Verify: `npm test -- replay`
 
-### [ ] REPLAY-02 — Prove responsive and exceptional replay
+### [x] REPLAY-02 — Prove responsive and exceptional replay
 
 Depends on: REPLAY-01, TARGET-02
 
@@ -204,7 +204,7 @@ Verify: `npm test -- replay-scenarios`
 
 ## Milestone 5: Policy and human control
 
-### [ ] POLICY-01 — Enforce effective runtime authority
+### [x] POLICY-01 — Enforce effective runtime authority
 
 Depends on: REPLAY-01
 

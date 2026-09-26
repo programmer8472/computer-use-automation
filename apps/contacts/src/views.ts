@@ -83,7 +83,6 @@ export function renderMemberDetails(
       <div class="actions">
         <a class="button" href="/contacts/${encodeURIComponent(member.memberId)}/edit">Edit contact</a>
         ${scenario === "ambiguous-actions" ? `<a class="button" href="/contacts/${encodeURIComponent(member.memberId)}/edit">Edit contact</a>` : ""}
-        <a class="button secondary" href="/contacts/${encodeURIComponent(member.memberId)}/ssn">Update SSN</a>
         <a class="button danger-secondary" href="/contacts/${encodeURIComponent(member.memberId)}/delete">Delete contact</a>
       </div>
     </div>
@@ -94,33 +93,6 @@ export function renderMemberDetails(
       <div><dt>SSN</dt><dd>${member.ssnOnFile ? "On file" : "Not on file"}</dd></div>
     </dl>
     ${scenario === "unexpected-dialog" ? renderUnexpectedDialog(`/contacts/${encodeURIComponent(member.memberId)}`) : ""}`,
-  );
-}
-
-export function renderSensitiveSsnForm(
-  member: Member,
-  invalid = false,
-): string {
-  return renderLayout(
-    "Update SSN",
-    `<nav aria-label="Breadcrumb"><a href="/contacts">Contacts</a> / <a href="/contacts/${encodeURIComponent(member.memberId)}">${escapeHtml(member.memberId)}</a> / Update SSN</nav>
-    <h1>Update SSN</h1>
-    <section class="sensitive-notice" role="note">
-      <h2>Human entry required</h2>
-      <p>This sensitive field must be completed by an authorized operator. Its value is never displayed again or retained by the training application.</p>
-    </section>
-    ${invalid ? '<section class="error-summary" role="alert"><h2>SSN was not saved</h2><p>Enter a nine-digit value in the requested format.</p></section>' : ""}
-    <form class="member-form" method="post" action="/contacts/${encodeURIComponent(member.memberId)}/ssn" aria-label="Update member SSN" autocomplete="off">
-      <div class="field ${invalid ? "field-error" : ""}">
-        <label for="ssn">Social Security number</label>
-        <input id="ssn" name="ssn" type="password" inputmode="numeric" pattern="[0-9]{3}-?[0-9]{2}-?[0-9]{4}" required aria-describedby="ssn-help">
-        <p id="ssn-help" class="field-help">Accepted only for this request; the raw value is immediately discarded.</p>
-      </div>
-      <div class="actions">
-        <button type="submit">Save SSN</button>
-        <a class="button secondary" href="/contacts/${encodeURIComponent(member.memberId)}">Cancel</a>
-      </div>
-    </form>`,
   );
 }
 
@@ -154,6 +126,10 @@ export function renderMemberForm(
   member: MemberInput,
   errors: ValidationErrors = {},
   formError = "",
+  sensitiveState: { ssnOnFile: boolean; invalidSsn: boolean } = {
+    ssnOnFile: false,
+    invalidSsn: false,
+  },
 ): string {
   const isCreate = mode === "create";
   const title = isCreate
@@ -173,7 +149,7 @@ export function renderMemberForm(
     `<nav aria-label="Breadcrumb"><a href="/contacts">Contacts</a> / ${isCreate ? "New" : escapeHtml(member.memberId)}</nav>
     <h1>${escapeHtml(title)}</h1>
     ${summary}
-    <form class="member-form" method="post" action="${action}" aria-label="${isCreate ? "Add member" : "Edit member"}">
+    <form class="member-form" method="post" action="${action}" aria-label="${isCreate ? "Add member" : "Edit member"}" autocomplete="off">
       ${isCreate ? '<p class="field-help">A member ID will be generated automatically when this contact is created.</p>' : renderInput("memberId", "Member ID", member.memberId, errors.memberId, true)}
       ${renderInput("firstName", "First name", member.firstName, errors.firstName)}
       ${renderInput("lastName", "Last name", member.lastName, errors.lastName)}
@@ -184,12 +160,29 @@ export function renderMemberForm(
         <textarea id="address" name="address" rows="3" aria-describedby="${errors.address === undefined ? "" : "address-error"}">${escapeHtml(member.address)}</textarea>
         ${renderError("address", errors.address)}
       </div>
+      ${isCreate ? "" : renderSensitiveEditField(sensitiveState)}
       <div class="actions">
         <button type="submit">${isCreate ? "Create contact" : "Save changes"}</button>
         <a class="button secondary" href="${isCreate ? "/contacts" : `/contacts/${encodeURIComponent(member.memberId)}`}">Cancel</a>
       </div>
     </form>`,
   );
+}
+
+function renderSensitiveEditField(state: {
+  ssnOnFile: boolean;
+  invalidSsn: boolean;
+}): string {
+  return `<section class="sensitive-notice" role="note">
+    <h2>Social Security number</h2>
+    <p>Human entry only. Current status: <strong>${state.ssnOnFile ? "On file" : "Not on file"}</strong>.</p>
+    <div class="field ${state.invalidSsn ? "field-error" : ""}">
+      <label for="ssn">Social Security number (human entry only)</label>
+      <input id="ssn" name="ssn" type="password" inputmode="numeric" pattern="[0-9]{3}-?[0-9]{2}-?[0-9]{4}" autocomplete="new-password" aria-describedby="ssn-help${state.invalidSsn ? " ssn-error" : ""}">
+      <p id="ssn-help" class="field-help">Leave blank to keep the current status. A submitted value is immediately discarded; only “on file” is retained.</p>
+      ${state.invalidSsn ? '<p id="ssn-error" class="field-error-message">Enter a nine-digit value in the requested format.</p>' : ""}
+    </div>
+  </section>`;
 }
 
 export function renderDeleteConfirmation(member: Member): string {
@@ -315,7 +308,7 @@ function renderMemberCard(member: Member, scenario: ScenarioName): string {
   const editLink = `<a href="${memberUrl}/edit">Edit contact</a>`;
   return `<article class="member-card">
     <p class="eyebrow">${escapeHtml(member.memberId)}</p>
-    <h2><a href="${memberUrl}">${escapeHtml(member.firstName)} ${escapeHtml(member.lastName)}</a></h2>
+    <h2><a href="${memberUrl}" aria-label="View contact ${escapeHtml(member.memberId)}">${escapeHtml(member.firstName)} ${escapeHtml(member.lastName)}</a></h2>
     <p>${escapeHtml(member.email)}</p>
     <p>${escapeHtml(member.phone)}</p>
     <details>

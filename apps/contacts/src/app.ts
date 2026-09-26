@@ -20,7 +20,6 @@ import {
   renderMemberForm,
   renderNotFound,
   renderScenarioControls,
-  renderSensitiveSsnForm,
   renderTransientFailure,
   styles,
 } from "./views.js";
@@ -125,13 +124,15 @@ export function createContactsApp(
       return;
     }
 
+    const contactUpdated = request.query.updated === "1";
+    const ssnUpdated = request.query.ssnUpdated === "1";
     const message =
       request.query.created === "1"
         ? "Contact created."
-        : request.query.updated === "1"
-          ? "Contact updated."
-          : request.query.ssnUpdated === "1"
-            ? "SSN status updated by the operator."
+        : contactUpdated && ssnUpdated
+          ? "Contact and SSN status updated by the operator."
+          : contactUpdated
+            ? "Contact updated."
             : "";
     response.send(renderMemberDetails(member, message, scenarios.active));
   });
@@ -143,20 +144,34 @@ export function createContactsApp(
       sendNotFound(response, memberId);
       return;
     }
-    response.send(renderMemberForm("edit", member));
+    response.send(
+      renderMemberForm("edit", member, {}, "", {
+        ssnOnFile: member.ssnOnFile,
+        invalidSsn: false,
+      }),
+    );
   });
 
   app.post("/contacts/:memberId", (request, response) => {
     const memberId = readPathParameter(request.params.memberId);
-    if (repository.get(memberId) === undefined) {
+    const existingMember = repository.get(memberId);
+    if (existingMember === undefined) {
       sendNotFound(response, memberId);
       return;
     }
 
     const member = readMemberForm(request.body as unknown, memberId);
     const errors = validateMemberInput(member);
-    if (Object.keys(errors).length > 0) {
-      response.status(422).send(renderMemberForm("edit", member, errors));
+    const ssnProvided = hasSsnValue(request.body as unknown);
+    const invalidSsn =
+      ssnProvided && !hasValidSsnShape(request.body as unknown);
+    if (Object.keys(errors).length > 0 || invalidSsn) {
+      response.status(422).send(
+        renderMemberForm("edit", member, errors, "", {
+          ssnOnFile: existingMember.ssnOnFile,
+          invalidSsn,
+        }),
+      );
       return;
     }
 
@@ -174,14 +189,19 @@ export function createContactsApp(
             member,
             {},
             "That email address is already assigned to another member.",
+            { ssnOnFile: existingMember.ssnOnFile, invalidSsn: false },
           ),
         );
       return;
     }
 
+    if (ssnProvided) {
+      repository.markSsnOnFile(memberId);
+    }
+
     response.redirect(
       303,
-      `/contacts/${encodeURIComponent(memberId)}?updated=1`,
+      `/contacts/${encodeURIComponent(memberId)}?updated=1${ssnProvided ? "&ssnUpdated=1" : ""}`,
     );
   });
 
@@ -202,36 +222,6 @@ export function createContactsApp(
       return;
     }
     response.redirect(303, "/contacts");
-  });
-
-  app.get("/contacts/:memberId/ssn", (request, response) => {
-    const memberId = readPathParameter(request.params.memberId);
-    const member = repository.get(memberId);
-    if (member === undefined) {
-      sendNotFound(response, memberId);
-      return;
-    }
-    response.send(renderSensitiveSsnForm(member));
-  });
-
-  app.post("/contacts/:memberId/ssn", (request, response) => {
-    const memberId = readPathParameter(request.params.memberId);
-    const member = repository.get(memberId);
-    if (member === undefined) {
-      sendNotFound(response, memberId);
-      return;
-    }
-
-    if (!hasValidSsnShape(request.body as unknown)) {
-      response.status(422).send(renderSensitiveSsnForm(member, true));
-      return;
-    }
-
-    repository.markSsnOnFile(memberId);
-    response.redirect(
-      303,
-      `/contacts/${encodeURIComponent(memberId)}?ssnUpdated=1`,
-    );
   });
 
   app.get("/admin/scenarios", (_request, response) => {
@@ -285,6 +275,10 @@ function hasValidSsnShape(body: unknown): boolean {
     return false;
   }
   return /^[0-9]{3}-?[0-9]{2}-?[0-9]{4}$/.test(body.ssn);
+}
+
+function hasSsnValue(body: unknown): boolean {
+  return isRecord(body) && typeof body.ssn === "string" && body.ssn.length > 0;
 }
 
 function readScenario(body: unknown): ScenarioName | undefined {

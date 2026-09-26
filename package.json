@@ -23,6 +23,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
+    "replay": "node --env-file-if-exists=.env --import tsx cli/src/replay.ts",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit"
   },

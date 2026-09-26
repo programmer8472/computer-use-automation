@@ -1,10 +1,10 @@
 # Current Project Status
 
-Last updated: 2026-09-25
+Last updated: 2026-09-26
 
 ## Current milestone
 
-Milestone 4 — Deterministic replay
+Milestone 5 — Same-session human handoff
 
 ## Current state
 
@@ -13,8 +13,12 @@ genuine bounded LLM discovery, and digest-bound capability compilation are
 implemented. A live OpenAI Responses API run updated a synthetic contact in five
 model calls and passed an independent state check. That trace successfully
 compiled into a readable draft and passed the explicit approval/verification
-flow. The next vertical step is deterministic model-free replay. The local Git
-repository is on branch `main`, with no commits yet.
+flow. Approved capabilities now replay deterministically with changed inputs and
+zero model calls across responsive layouts and exceptional states. Effective
+policy now inspects the resolved control immediately before action and blocks
+the visible SSN field from automation. The next step is transferring that same
+browser session to a human and safely resuming. The published Git repository is
+on branch `main`; its initial commit is authored by Alex Shein.
 
 ## Completed
 
@@ -47,26 +51,38 @@ repository is on branch `main`, with no commits yet.
 - Completed `COMPILER-01`: reviewed contact-update catalog, trace shape checks,
   input-bound locator template, least-authority action intersection,
   schema-validated draft output, and digest-bound explicit approval.
+- Moved the masked SSN control onto the standard Edit screen, removed the extra
+  SSN page, and retained only the non-sensitive `ssnOnFile` state after a human
+  submission.
+- Completed `REPLAY-01`: approval and input preflight, locator hydration,
+  effect-aware execution, typed terminal results, model-free evidence, and
+  reconcile-without-repeat handling for uncertain writes.
+- Completed `REPLAY-02`: the same capability succeeds at wide, tablet, and
+  narrow viewports; missing members classify as `CONTACT_NOT_FOUND`; ambiguity
+  fails before click; and the real transient scenario recovers within bounds.
+- Completed `POLICY-01`: artifact/runtime authority intersection, blocked-data
+  union, resolved-control inspection, destination checks, and a hard barrier
+  against agent entry into the visible SSN/password control.
 
 ## In progress
 
-- None. The next session should begin deterministic replay.
+- None. The next session should begin same-session human handoff.
 
 ## Next three tasks
 
-1. `REPLAY-01` — Execute approved capabilities through the effect-aware state
-   machine without model calls.
-2. `REPLAY-02` — Prove responsive and exceptional replay behavior.
-3. `POLICY-01` — Enforce the intersection of runtime, artifact, and target
-   authority.
+1. `HANDOFF-01` — Transfer the same browser session to a human for SSN entry and
+   verify safe resume.
+2. `DEMO-01` — Build the one-command scenario matrix and committed redacted
+   evidence.
+3. `DOCS-01` — Finish the evaluator README and required report.
 
 ## Blockers and decisions needed
 
-- No initial commit exists yet. The planning baseline should be committed before
-  implementation begins if commit creation is authorized.
 - Discovery credentials are user-managed and must be consumed only by the
   provider SDK at runtime. Agents must never inspect the local `.env` file or
   print the configured value.
+- The real submission capability still needs a reviewer identity at approval
+  time; tests use an explicitly synthetic reviewer.
 
 ## Health check
 
@@ -84,8 +100,8 @@ ephemeral loopback port.
 - Source documents were inspected page-by-page.
 - Repository contents were inspected before planning files were added.
 - The documented planning health check completed with exit code `0`.
-- Git initialization was verified on branch `main`; the repository has no
-  commits yet.
+- Git publication was verified on branch `main`; the initial commit is authored
+  by Alex Shein.
 - `npm install && npm run check && npm test` passed for the foundation before
   target implementation.
 - `npm run check` passed after the target implementation.
@@ -113,6 +129,19 @@ ephemeral loopback port.
   approval command produced an artifact that passed digest verification.
 - Final full verification passed: 8 test files and 53 tests, plus type checking,
   linting, and formatting.
+- The integrated Edit/SSN target suites passed: 17 contact tests and 9 focused
+  target-scenario tests.
+- `REPLAY-01` passed its focused suite, including changed-input replay,
+  pre-browser approval rejection, and post-write timeout reconciliation with one
+  write attempt.
+- A real `npm run replay` CLI execution succeeded with `modelCallCount: 0`; its
+  evidence manifest verified and contained no submitted phone value.
+- `REPLAY-02` passed 4 real-browser scenarios covering all three viewports,
+  not-found classification, ambiguity without click, and transient recovery.
+- `POLICY-01` passed focused policy tests and an integration test proving that
+  an approved capability repointed at the SSN control is blocked before fill.
+- Final full verification passed: 11 test files and 65 tests, plus type
+  checking, linting, and formatting.
 
 ## Files changed in the latest session
 
@@ -128,6 +157,10 @@ ephemeral loopback port.
   `packages/discovery/test/*`
 - `packages/compiler/package.json`, `packages/compiler/src/*`,
   `packages/compiler/test/*`
+- `packages/replay/package.json`, `packages/replay/src/*`,
+  `packages/replay/test/*`
+- `packages/policy/package.json`, `packages/policy/src/*`,
+  `packages/policy/test/*`
 - `cli/package.json`, `cli/src/*`
 - `README.md`
 - `docs/IMPLEMENTATION_PLAN.md`
@@ -137,8 +170,8 @@ ephemeral loopback port.
 ## Resume instruction
 
 Read this file and `docs/IMPLEMENTATION_PLAN.md`, run the health check above,
-then start `REPLAY-01` using the approved capability contract. Deterministic
-replay must make zero model calls, verify approval before browser use, hydrate
-locator templates from validated inputs, and reconcile rather than repeat a
-possibly completed write. Before stopping, record exact verification results and
-update this snapshot.
+then start `HANDOFF-01`. Pause on SSN intent before sensitive entry, retain the
+same live browser session, transfer an exclusive lease to the operator, resume
+only after release and checkpoint verification, and prove that no raw SSN enters
+model context or evidence. Before stopping, record exact verification results
+and update this snapshot.

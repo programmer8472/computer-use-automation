@@ -80,8 +80,9 @@ The Member Contacts Admin application will provide:
 - Controlled fault injection for a transient interruption, unexpected dialog,
   and ambiguous UI.
 - Desktop, tablet, and narrow/mobile layouts.
-- A sensitive SSN input that never returns the raw value and stores only a
-  non-reversible verification representation or `ssn_on_file` state.
+- A password-masked SSN input on the normal Edit screen that never returns the
+  raw value and stores only an `ssn_on_file` state. Automation can observe that
+  the control exists but policy reserves entry for a human-held session lease.
 
 The interface should be realistically awkward but fair: no automation-specific
 test IDs, semantic labels where a real accessible application should have them,
