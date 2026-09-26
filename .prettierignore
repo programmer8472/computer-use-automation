@@ -1,0 +1,6 @@
+coverage/
+dist/
+evidence/generated/
+node_modules/
+package-lock.json
+docs/*.pdf

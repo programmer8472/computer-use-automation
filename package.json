@@ -1,0 +1,40 @@
+{
+  "name": "computer-use-automation",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.9.3",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "cli"
+  ],
+  "scripts": {
+    "app:start": "npm run start --workspace @computer-use/contacts",
+    "browser:install": "playwright install chromium",
+    "capability:approve": "node --import tsx cli/src/approve-capability.ts",
+    "capability:compile": "node --import tsx cli/src/compile-capability.ts",
+    "check": "npm run typecheck && npm run lint && npm run format:check",
+    "data:reset": "npm run reset --workspace @computer-use/contacts",
+    "discover": "node --env-file-if-exists=.env --import tsx cli/src/discover.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.2",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1",
+    "vitest": "^5.0.2"
+  }
+}

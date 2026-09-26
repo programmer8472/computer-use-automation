@@ -1,0 +1,14 @@
+{
+  "name": "@computer-use/evidence",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@computer-use/contracts": "0.0.0",
+    "zod": "^4.6.5"
+  }
+}

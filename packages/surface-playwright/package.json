@@ -1,0 +1,14 @@
+{
+  "name": "@computer-use/surface-playwright",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@computer-use/contracts": "0.0.0",
+    "playwright": "^1.63.0"
+  }
+}
