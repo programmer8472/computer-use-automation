@@ -4,7 +4,7 @@ Last updated: 2026-09-28
 
 ## Current milestone
 
-Required implementation complete — final submission review
+Submission-ready — awaiting delivery of the public repository URL
 
 ## Current state
 
@@ -30,7 +30,10 @@ preserves normal human search by ID, name, email, or phone, with explicit match
 counts, empty results, and clear behavior. Sensitive-action escalation is also
 self-contained: the result card preserves the non-sensitive member ID and
 displays the exact handoff launcher command, copy control, and
-claim/edit/release instructions.
+claim/edit/release instructions. The final submission audit confirmed that the
+public repository is reachable without authentication, local `main` is clean and
+synchronized with `origin/main`, every required document and evidence package is
+present, and all documented credential-free verification commands pass.
 
 ## Completed
 
@@ -134,17 +137,18 @@ claim/edit/release instructions.
 
 ## Next three tasks
 
-1. Run the on-page Phase 1 → Phase 2 → Phase 3 path once with the user's local
-   provider configuration and confirm the live evaluator experience.
-2. Review the final diff, commit, and publish the completed submission.
-3. `PORTABILITY-01` — Optionally add a second tenant/layout overlay, or add
-   artifact confidence scoring from stability history.
+1. Email the public repository URL to `assignments@interface.ai` from the
+   address used for the application.
+2. Optionally rerun the on-page Phase 1 → Phase 2 → Phase 3 path with a local
+   provider credential immediately before demonstrating it live.
+3. Preserve the submission scope; make further changes only in response to
+   evaluator feedback.
 
 ## Blockers and decisions needed
 
-- None for the implementation. Final manual confirmation of the new on-page
-  provider-backed lifecycle remains; it uses the user's local credential and a
-  reviewer name supplied directly through the UI.
+- None. The credential-dependent lifecycle is available for a live rerun, and
+  the repository already contains a genuine five-call discovery record plus
+  automated coverage of the visible discovery/approval/replay lifecycle.
 
 ## Health check
 
@@ -248,37 +252,17 @@ ephemeral loopback port.
 - The focused Automation Console suite passes all 10 tests after adding dynamic
   SSN handoff guidance. The escalation card was visually inspected with the
   member-specific command and all three operator steps visible without overflow.
+- Final submission audit on 2026-09-28: all durable documentation was checked
+  against the assignment brief; `npm run check` passed; all 15 test files and 81
+  tests passed; `npm run demo` printed the seven scenario passes plus evidence
+  verification; `npm run evidence:verify` validated all nine packages and the
+  privacy scan; and `npm run stability -- --runs 5` completed 15/15 attempts at
+  100% with no observed flakiness. The public GitHub URL returned HTTP 200, and
+  local `main` matched `origin/main` before this status update.
 
 ## Files changed in the latest session
 
-- `README.md`
-- `package.json`, `package-lock.json`
-- `apps/contacts/src/*`, `apps/contacts/test/*`
-- `packages/contracts/src/*`
-- `packages/surface-playwright/package.json`
-- `packages/surface-playwright/src/*`, `packages/surface-playwright/test/*`
-- `packages/evidence/package.json`
-- `packages/evidence/src/*`, `packages/evidence/test/*`
-- `packages/discovery/package.json`, `packages/discovery/src/*`,
-  `packages/discovery/test/*`
-- `packages/compiler/package.json`, `packages/compiler/src/*`,
-  `packages/compiler/test/*`
-- `packages/replay/package.json`, `packages/replay/src/*`,
-  `packages/replay/test/*`
-- `packages/policy/package.json`, `packages/policy/src/*`,
-  `packages/policy/test/*`
-- `packages/session/package.json`, `packages/session/src/*`,
-  `packages/session/test/*`
-- `apps/operator/package.json`, `apps/operator/src/*`
-- `cli/package.json`, `cli/src/*`, including demo and evidence verification
-- `evidence/submission/*`, `evidence/README.md`
-- `tests/submission-evidence.test.ts`
-- `.prettierignore`
-- `README.md`
-- `REPORT.md`
-- `docs/IMPLEMENTATION_PLAN.md`
 - `docs/STATUS.md`
-- `docs/DECISIONS.md`
 
 ## Resume instruction
 
