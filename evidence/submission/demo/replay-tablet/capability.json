@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "1.0.0",
+  "capability": {
+    "id": "contact.update-phone",
+    "name": "Update a member phone number",
+    "revision": 1
+  },
+  "approval": {
+    "status": "approved",
+    "approvedBy": "demo-reviewer",
+    "approvedAt": "2026-09-26T16:00:00.000Z",
+    "digest": "f1a08d5dc20dedb1f2488aa64ad753197e24fe5f46841dee5c0079b876a24fcb"
+  },
+  "target": {
+    "appFamily": "member-contacts",
+    "surface": "legacy_web",
+    "semanticVersionRange": ">=1.0.0 <2.0.0",
+    "responsiveVariants": [
+      "wide",
+      "tablet",
+      "narrow"
+    ]
+  },
+  "inputs": {
+    "memberId": {
+      "description": "Synthetic member identifier",
+      "required": true,
+      "dataClass": "personal",
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 6,
+      "pattern": "^M-[0-9]{4}$"
+    },
+    "phone": {
+      "description": "Replacement synthetic phone number",
+      "required": true,
+      "dataClass": "personal",
+      "type": "string",
+      "minLength": 7,
+      "maxLength": 20
+    }
+  },
+  "outputs": {
+    "updated": {
+      "description": "Whether the update was independently verified",
+      "required": true,
+      "dataClass": "public",
+      "type": "boolean"
+    }
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "description": "Select the requested member",
+      "action": {
+        "type": "click",
+        "target": {
+          "strategies": [
+            {
+              "type": "role",
+              "role": "link",
+              "name": "{memberId}",
+              "exact": true
+            },
+            {
+              "type": "role",
+              "role": "link",
+              "name": "View contact {memberId}",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Reviewed wide and narrow member links bound to memberId"
+        }
+      },
+      "preconditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "role",
+                "role": "link",
+                "name": "{memberId}",
+                "exact": true
+              },
+              {
+                "type": "role",
+                "role": "link",
+                "name": "View contact {memberId}",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Reviewed wide and narrow member links bound to memberId"
+          },
+          "state": "enabled"
+        }
+      ],
+      "settleConditions": [
+        {
+          "kind": "url",
+          "pattern": "/contacts/*"
+        }
+      ],
+      "postconditions": [
+        {
+          "kind": "url",
+          "pattern": "/contacts/*"
+        }
+      ],
+      "timeoutMs": 5000,
+      "effect": "none",
+      "risk": "low",
+      "retry": {
+        "mode": "safe_retry",
+        "maxAttempts": 2,
+        "backoffMs": 100
+      }
+    },
+    {
+      "id": "step-2",
+      "description": "Open the member edit form",
+      "action": {
+        "type": "click",
+        "target": {
+          "strategies": [
+            {
+              "type": "role",
+              "role": "link",
+              "name": "Edit contact",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Exact accessible role and name selected during discovery"
+        }
+      },
+      "preconditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "role",
+                "role": "link",
+                "name": "Edit contact",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Exact accessible role and name selected during discovery"
+          },
+          "state": "enabled"
+        }
+      ],
+      "settleConditions": [
+        {
+          "kind": "url",
+          "pattern": "/contacts/*/edit"
+        }
+      ],
+      "postconditions": [
+        {
+          "kind": "url",
+          "pattern": "/contacts/*/edit"
+        }
+      ],
+      "timeoutMs": 5000,
+      "effect": "none",
+      "risk": "low",
+      "retry": {
+        "mode": "safe_retry",
+        "maxAttempts": 2,
+        "backoffMs": 100
+      }
+    },
+    {
+      "id": "step-3",
+      "description": "Fill the replacement phone number",
+      "action": {
+        "type": "fill",
+        "target": {
+          "strategies": [
+            {
+              "type": "label",
+              "label": "Phone",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Exact accessible label selected during discovery"
+        },
+        "value": {
+          "kind": "input",
+          "name": "phone"
+        }
+      },
+      "preconditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "label",
+                "label": "Phone",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Exact accessible label selected during discovery"
+          },
+          "state": "visible"
+        }
+      ],
+      "settleConditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "label",
+                "label": "Phone",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Exact accessible label selected during discovery"
+          },
+          "state": "visible"
+        }
+      ],
+      "postconditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "label",
+                "label": "Phone",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Exact accessible label selected during discovery"
+          },
+          "state": "visible"
+        }
+      ],
+      "timeoutMs": 5000,
+      "effect": "none",
+      "risk": "low",
+      "retry": {
+        "mode": "safe_retry",
+        "maxAttempts": 2,
+        "backoffMs": 100
+      }
+    },
+    {
+      "id": "step-4",
+      "description": "Persist the member update once",
+      "action": {
+        "type": "click",
+        "target": {
+          "strategies": [
+            {
+              "type": "role",
+              "role": "button",
+              "name": "Save changes",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Exact accessible role and name selected during discovery"
+        }
+      },
+      "preconditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "role",
+                "role": "button",
+                "name": "Save changes",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Exact accessible role and name selected during discovery"
+          },
+          "state": "enabled"
+        }
+      ],
+      "settleConditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "text",
+                "text": "Contact updated.",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "The target application emits this reviewed success notice"
+          },
+          "state": "visible"
+        }
+      ],
+      "postconditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "text",
+                "text": "Contact updated.",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "The target application emits this reviewed success notice"
+          },
+          "state": "visible"
+        }
+      ],
+      "timeoutMs": 10000,
+      "effect": "write",
+      "risk": "medium",
+      "retry": {
+        "mode": "reconcile_only",
+        "maxAttempts": 1,
+        "backoffMs": 0
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "kind": "success",
+      "code": "SUCCESS",
+      "finalChecks": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "text",
+                "text": "Contact updated.",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "The target application emits this reviewed success notice"
+          },
+          "state": "visible"
+        }
+      ],
+      "outputBindings": {
+        "updated": "contact-updated"
+      }
+    },
+    {
+      "kind": "business_outcome",
+      "code": "CONTACT_NOT_FOUND",
+      "conditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "role",
+                "role": "link",
+                "name": "{memberId}",
+                "exact": true
+              },
+              {
+                "type": "role",
+                "role": "link",
+                "name": "View contact {memberId}",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Reviewed wide and narrow member links bound to memberId"
+          },
+          "state": "hidden"
+        }
+      ]
+    },
+    {
+      "kind": "hard_failure",
+      "code": "AMBIGUOUS_TARGET",
+      "conditions": [
+        {
+          "kind": "marker",
+          "name": "target-ambiguous",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "allowedOrigins": [
+      "http://127.0.0.1:4174"
+    ],
+    "allowedRoutes": [
+      "/contacts",
+      "/contacts/*"
+    ],
+    "allowedActions": [
+      "click",
+      "fill"
+    ],
+    "blockedDataClasses": [
+      "sensitive",
+      "credential",
+      "full_ssn"
+    ],
+    "maximumRecoveryAttempts": 1,
+    "requiredApprovals": [
+      {
+        "risk": "high",
+        "authority": "human_operator"
+      },
+      {
+        "risk": "critical",
+        "authority": "human_operator"
+      }
+    ]
+  },
+  "provenance": {
+    "discoveryRunId": "run-14593185-527d-4608-89af-92bfbb8700a5",
+    "evidenceRefs": [
+      "evidence/submission/discovery-live/manifest.json"
+    ],
+    "modelCallCount": 5
+  }
+}

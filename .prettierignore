@@ -1,6 +1,7 @@
 coverage/
 dist/
 evidence/generated/
+evidence/submission/
 node_modules/
 package-lock.json
 docs/*.pdf

@@ -1,0 +1,106 @@
+{
+  "url": "http://127.0.0.1:4174/contacts/M-1001/edit",
+  "title": "Edit Avery Jordan | Member Contacts Admin",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "elements": [
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Northbank Automation Console",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Contacts",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "input",
+      "role": "textbox",
+      "name": "Member ID",
+      "inputType": "text",
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "input",
+      "role": "textbox",
+      "name": "First name",
+      "inputType": "text",
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "input",
+      "role": "textbox",
+      "name": "Last name",
+      "inputType": "text",
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "input",
+      "role": "textbox",
+      "name": "Email",
+      "inputType": "email",
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "input",
+      "role": "textbox",
+      "name": "Phone",
+      "inputType": "tel",
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "textarea",
+      "role": "textbox",
+      "name": "Address",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "section",
+      "role": "note",
+      "name": "Social Security number Human entry only. Current status: Not on file. Social Security number (human entry only) Leave blank to keep the current status. A submit",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "input",
+      "role": "textbox",
+      "name": "Social Security number (human entry only)",
+      "inputType": "password",
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "button",
+      "role": "button",
+      "name": "Save changes",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Cancel",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    }
+  ]
+}

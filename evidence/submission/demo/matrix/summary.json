@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-09-26T16:00:00.000Z",
+  "application": "Member Contacts Admin",
+  "resetBeforeEachScenario": true,
+  "discoveryEvidence": "../../discovery-live/manifest.json",
+  "capabilityId": "contact.update-phone",
+  "capabilityApproval": "approved",
+  "scenarios": [
+    {
+      "name": "replay-wide",
+      "expected": "success/SUCCESS",
+      "actual": "success/SUCCESS",
+      "passed": true,
+      "evidencePackage": "demo/replay-wide"
+    },
+    {
+      "name": "replay-tablet",
+      "expected": "success/SUCCESS",
+      "actual": "success/SUCCESS",
+      "passed": true,
+      "evidencePackage": "demo/replay-tablet"
+    },
+    {
+      "name": "replay-narrow",
+      "expected": "success/SUCCESS",
+      "actual": "success/SUCCESS",
+      "passed": true,
+      "evidencePackage": "demo/replay-narrow"
+    },
+    {
+      "name": "missing-contact",
+      "expected": "business_outcome/CONTACT_NOT_FOUND",
+      "actual": "business_outcome/CONTACT_NOT_FOUND",
+      "passed": true,
+      "evidencePackage": "demo/missing-contact"
+    },
+    {
+      "name": "ambiguous-target",
+      "expected": "hard_failure/AMBIGUOUS_TARGET",
+      "actual": "hard_failure/AMBIGUOUS_TARGET",
+      "passed": true,
+      "evidencePackage": "demo/ambiguous-target"
+    },
+    {
+      "name": "transient-recovery",
+      "expected": "success/SUCCESS",
+      "actual": "success/SUCCESS",
+      "passed": true,
+      "evidencePackage": "demo/transient-recovery"
+    },
+    {
+      "name": "handoff",
+      "expected": "success/HANDOFF_RESUMED",
+      "actual": "success/HANDOFF_RESUMED",
+      "passed": true,
+      "evidencePackage": "demo/handoff"
+    }
+  ]
+}

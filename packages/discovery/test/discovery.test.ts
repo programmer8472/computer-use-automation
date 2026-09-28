@@ -111,16 +111,52 @@ describe("bounded discovery", () => {
     ).toContain('"runId": "run-success"');
   });
 
-  it("blocks sensitive requests before calling the model", async () => {
+  it("routes SSN intent to human control before calling the model", async () => {
     const model = new ScriptedModel([]);
     const runner = createRunner(model, "run-sensitive");
     const sensitiveRequest = request("run-sensitive", async () =>
       Promise.resolve(false),
     );
     sensitiveRequest.goal = "Update the SSN for M-1001";
+
+    const result = await runner.run(sensitiveRequest);
+
+    expect(result).toMatchObject({
+      kind: "pending_escalation",
+      reasonCode: "SENSITIVE_DATA_ENTRY_REQUIRED",
+      modelCallCount: 0,
+    });
+    expect(model.calls).toBe(0);
+  });
+
+  it("hard-blocks a raw protected value before calling the model", async () => {
+    const model = new ScriptedModel([]);
+    const runner = createRunner(model, "run-raw-sensitive");
+    const sensitiveRequest = request("run-raw-sensitive", async () =>
+      Promise.resolve(false),
+    );
+    sensitiveRequest.goal = `Update SSN ${["321", "54", "9876"].join("-")}`;
+
+    const result = await runner.run(sensitiveRequest);
+
+    expect(result).toMatchObject({
+      kind: "hard_failure",
+      code: "SENSITIVE_GOAL_BLOCKED",
+      modelCallCount: 0,
+    });
+    expect(model.calls).toBe(0);
+  });
+
+  it("hard-blocks a protected input even when the goal requests handoff", async () => {
+    const model = new ScriptedModel([]);
+    const runner = createRunner(model, "run-sensitive-input");
+    const sensitiveRequest = request("run-sensitive-input", async () =>
+      Promise.resolve(false),
+    );
+    sensitiveRequest.goal = "Update the SSN for M-1001";
     sensitiveRequest.inputs = {
-      ssn: {
-        value: "synthetic-sensitive-value",
+      protectedIdentifier: {
+        value: "not-used-or-recorded",
         dataClass: "full_ssn",
         description: "Protected identifier",
       },
@@ -130,7 +166,7 @@ describe("bounded discovery", () => {
 
     expect(result).toMatchObject({
       kind: "hard_failure",
-      code: "SENSITIVE_GOAL_BLOCKED",
+      code: "SENSITIVE_INPUT_BLOCKED",
       modelCallCount: 0,
     });
     expect(model.calls).toBe(0);

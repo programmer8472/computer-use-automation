@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "demo-transient-recovery",
+  "createdAt": "2026-09-26T16:00:00.000Z",
+  "files": [
+    {
+      "path": "capability.json",
+      "mediaType": "application/json",
+      "bytes": 3435,
+      "sha256": "31a0df7d3df58182c9eb3df62e5990fff2f41d0453ff956e6eeed7e253a31fe1",
+      "redaction": "structured"
+    },
+    {
+      "path": "events.jsonl",
+      "mediaType": "application/x-ndjson",
+      "bytes": 1847,
+      "sha256": "88f841a5bba1df5290921beb790ab36b9a5ccfc9f48fc6918dab38c87d13e82c",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-1.json",
+      "mediaType": "application/json",
+      "bytes": 3717,
+      "sha256": "2b3a201e5380fffcd02299eb9241228ca9bf090215a0f78e48f87ecc17984fb3",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-6.json",
+      "mediaType": "application/json",
+      "bytes": 1898,
+      "sha256": "1184f0c72a98a1d52996df29ff441a848e5dc811a1ce5c7c3d0a539f3b126622",
+      "redaction": "structured"
+    },
+    {
+      "path": "result.json",
+      "mediaType": "application/json",
+      "bytes": 275,
+      "sha256": "088fbec1f8fbca37c75408913fd996bed6067a533320ef6c6fad9a679533fe4c",
+      "redaction": "structured"
+    }
+  ]
+}

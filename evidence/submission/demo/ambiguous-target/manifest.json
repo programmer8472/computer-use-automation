@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "demo-ambiguous-target",
+  "createdAt": "2026-09-26T16:00:00.000Z",
+  "files": [
+    {
+      "path": "capability.json",
+      "mediaType": "application/json",
+      "bytes": 10641,
+      "sha256": "1bb5956d637282a29e41a31c9a77bba3e72cd9fe893943554b8095cbcb21c6b0",
+      "redaction": "structured"
+    },
+    {
+      "path": "events.jsonl",
+      "mediaType": "application/x-ndjson",
+      "bytes": 1375,
+      "sha256": "59ea54171e7df502e06a8a0e6c300d03034456d1c1f9d090dbf95e97e15fa4dd",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-1.json",
+      "mediaType": "application/json",
+      "bytes": 4614,
+      "sha256": "9c84bdd4764666310ced75dd6c99059516a55039f69d11ffe30a4c07af41b213",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-4.json",
+      "mediaType": "application/json",
+      "bytes": 961,
+      "sha256": "0009fe9336c0efe9896d7eb6ef1bbd74c9a2231f19f877e74d5be5262ebea9db",
+      "redaction": "structured"
+    },
+    {
+      "path": "result.json",
+      "mediaType": "application/json",
+      "bytes": 404,
+      "sha256": "748614eec40a06caca50542c88472033b6118222023ba72057759a6339fff2df",
+      "redaction": "structured"
+    }
+  ]
+}

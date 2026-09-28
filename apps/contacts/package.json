@@ -12,6 +12,13 @@
     "start": "tsx src/server.ts"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "@computer-use/compiler": "0.0.0",
+    "@computer-use/contracts": "0.0.0",
+    "@computer-use/discovery": "0.0.0",
+    "@computer-use/evidence": "0.0.0",
+    "@computer-use/replay": "0.0.0",
+    "@computer-use/surface-playwright": "0.0.0",
+    "express": "^5.2.1",
+    "playwright": "^1.63.0"
   }
 }

@@ -1,24 +1,36 @@
 # Current Project Status
 
-Last updated: 2026-09-26
+Last updated: 2026-09-28
 
 ## Current milestone
 
-Milestone 5 — Same-session human handoff
+Required implementation complete — final submission review
 
 ## Current state
 
 The synthetic target, semantic Playwright surface adapter, redacted evidence,
-genuine bounded LLM discovery, and digest-bound capability compilation are
-implemented. A live OpenAI Responses API run updated a synthetic contact in five
-model calls and passed an independent state check. That trace successfully
-compiled into a readable draft and passed the explicit approval/verification
-flow. Approved capabilities now replay deterministically with changed inputs and
-zero model calls across responsive layouts and exceptional states. Effective
-policy now inspects the resolved control immediately before action and blocks
-the visible SSN field from automation. The next step is transferring that same
-browser session to a human and safely resuming. The published Git repository is
-on branch `main`; its initial commit is authored by Alex Shein.
+genuine bounded LLM discovery, digest-bound capability compilation, and
+deterministic replay are implemented. Same-session SSN handoff is implemented
+behind an exclusive automation/operator lease: automation opens the masked edit
+field, a local operator surface transfers the unchanged page to a human, and
+automation resumes only after release and verification of the non-sensitive
+`On file` checkpoint. Automated integration coverage passes, and the user
+confirmed the headed two-tab workflow. The credential-free demo now regenerates
+seven scenario packages and verifies nine committed evidence packages. The
+evaluator README and required seven-section `/REPORT.md` are complete. The
+published Git repository is on branch `main`; its initial commit is authored by
+Alex Shein. A one-page Automation Console now provides the evaluator-facing
+entry point for natural-language commands, controlled exception scenarios, typed
+results, and direct application-state verification. That page now visibly gates
+the complete lifecycle: live provider-backed discovery, compiled draft, named
+digest-bound approval, and deterministic replay of the exact approved session
+package with zero model calls. Full reset returns the UI and seed data to Phase
+1 while retaining immutable evidence. The consolidated member application also
+preserves normal human search by ID, name, email, or phone, with explicit match
+counts, empty results, and clear behavior. Sensitive-action escalation is also
+self-contained: the result card preserves the non-sensitive member ID and
+displays the exact handoff launcher command, copy control, and
+claim/edit/release instructions.
 
 ## Completed
 
@@ -63,26 +75,76 @@ on branch `main`; its initial commit is authored by Alex Shein.
 - Completed `POLICY-01`: artifact/runtime authority intersection, blocked-data
   union, resolved-control inspection, destination checks, and a hard barrier
   against agent entry into the visible SSN/password control.
+- Implemented the `HANDOFF-01` lease state machine, operator claim/release UI,
+  same-page SSN coordinator, safe resume reconciliation, redacted transition
+  audit, and retry after a failed resume checkpoint.
+- Routed SSN-only discovery intent to human control with zero model calls while
+  continuing to hard-block any request containing a raw protected value.
+- Added `npm run handoff -- --member-id M-1001`, which starts isolated local
+  Contacts/operator servers and opens the real two-tab headed demonstration.
+- Completed `HANDOFF-01`: the user confirmed the documented manual claim,
+  protected entry, release, and verified-resume workflow on 2026-09-26.
+- Completed `DEMO-01`: `npm run demo` resets its own target, exercises three
+  responsive successes, not found, ambiguity, transient recovery, and handoff,
+  then verifies the committed evidence.
+- Curated the genuine five-model-call discovery record and committed replay,
+  exceptional-state, handoff, matrix, and manifest evidence under
+  `evidence/submission/`.
+- Completed `DOCS-01`: the README provides exact credential-free and live paths,
+  and `/REPORT.md` uses all seven assignment-mandated headings.
+- Completed optional `CATALOG-01`: the default page routes reviewed phone-update
+  and member-lookup instructions to deterministic capabilities, displays
+  success/business/recovery/failure/handoff outcomes, and keeps the fault
+  controls and current contact data on the same responsive page.
+- Consolidated the evaluator experience into one responsive workspace: inline
+  member create/edit/remove controls occupy the left desktop column, while the
+  command runner, fault scenarios, latest result, and outcome guide occupy the
+  right. Other target pages remain internal and are no longer linked.
+- Made the ambiguity injection visible in the consolidated workspace: selecting
+  `ambiguous-actions` immediately adds a second identical Edit control to each
+  member card and displays an explanatory notice; selecting another scenario
+  removes both the duplicate controls and notice.
+- Completed the formal agent-facing catalog stretch goal: a versioned discovery
+  endpoint publishes approved input/output contracts, and a typed invocation
+  endpoint validates exact arguments, runs deterministic replay, and returns
+  typed outputs, structured results, evidence paths, and zero model calls.
+- Completed `STABILITY-01`: the credential-free runner repeats update success,
+  lookup success, and not-found business outcomes through the typed API and
+  reports pass rate, observed outcome variance, median/p95 latency, and
+  flakiness to a generated JSON report.
+- Completed `LIFECYCLE-UI-01`: the one-page console displays three labeled
+  phases, runs genuine API-backed discovery, shows model calls and semantic
+  actions, generates a typed draft, requires explicit named approval, gates
+  replay on that approval, and clearly reports zero replay model calls.
+- Added **Reset entire demo**, which restores seed contacts, normal scenarios,
+  and empty lifecycle/run state without deleting audit evidence.
+- Updated `npm run app:start` to load the repository-local `.env` at process
+  startup so the on-page discovery phase can use the configured provider; no
+  credential is displayed, logged, or copied into evidence.
+- Completed `WORKSPACE-SEARCH-01`: restored member search directly above the
+  consolidated member cards so a person can use the same fundamental lookup
+  operation exposed to automation.
+- Completed `HANDOFF-UX-01`: SSN escalation now explains how to continue on the
+  same screen instead of requiring the evaluator to find the workflow in source
+  documentation.
 
 ## In progress
 
-- None. The next session should begin same-session human handoff.
+- None. All required milestones are complete.
 
 ## Next three tasks
 
-1. `HANDOFF-01` — Transfer the same browser session to a human for SSN entry and
-   verify safe resume.
-2. `DEMO-01` — Build the one-command scenario matrix and committed redacted
-   evidence.
-3. `DOCS-01` — Finish the evaluator README and required report.
+1. Run the on-page Phase 1 → Phase 2 → Phase 3 path once with the user's local
+   provider configuration and confirm the live evaluator experience.
+2. Review the final diff, commit, and publish the completed submission.
+3. `PORTABILITY-01` — Optionally add a second tenant/layout overlay, or add
+   artifact confidence scoring from stability history.
 
 ## Blockers and decisions needed
 
-- Discovery credentials are user-managed and must be consumed only by the
-  provider SDK at runtime. Agents must never inspect the local `.env` file or
-  print the configured value.
-- The real submission capability still needs a reviewer identity at approval
-  time; tests use an explicitly synthetic reviewer.
+- None for the implementation. Final manual confirmation of the new on-page
+  provider-backed lifecycle remains; it uses the user's local credential and a
+  reviewer name supplied directly through the UI.
 
 ## Health check
 
@@ -142,6 +204,50 @@ ephemeral loopback port.
   an approved capability repointed at the SSN control is blocked before fill.
 - Final full verification passed: 11 test files and 65 tests, plus type
   checking, linting, and formatting.
+- The discovery, handoff, and controller areas now contain 8 passing tests,
+  including zero-model-call SSN intent routing, protected-input rejection, lease
+  transition enforcement, same-Playwright-page operator entry, and evidence
+  exclusion of the raw value.
+- `npm install` completed with 0 vulnerabilities; `npm run check` passed; and
+  the final full `npm test` passed 13 files and 70 tests.
+- `npm run demo` passed all seven expected/actual scenario comparisons twice,
+  proving that evidence reset and regeneration are repeatable.
+- `npm run evidence:verify` independently verified nine packages, all manifest
+  digests, and the prohibited-sensitive-pattern scan.
+- The final `npm run check` passed, and the expanded full suite passed 14 test
+  files and 71 tests, including required committed-evidence coverage.
+- Assignment pages 7-8 were rechecked to confirm the exact `/README.md`,
+  `/REPORT.md`, `/evidence/`, and seven-heading requirements.
+- The one-page Automation Console was visually inspected at desktop and narrow
+  widths. A real console request updated a contact, returned `SUCCESS` with zero
+  replay model calls, and displayed its generated evidence path and refreshed
+  contact data.
+- Final stretch verification passed: `npm run check`, all 15 test files and 79
+  tests, the eight-line credential-free demo matrix, and validation of all nine
+  committed evidence packages. The expanded catalog was visually inspected.
+  `npm run stability -- --runs 5` completed 15/15 typed API invocations with a
+  100% pass rate, no observed flakiness, and zero model calls per replay.
+- The gated lifecycle integration test exercised discovery, compilation,
+  approval, replay, and reset through real HTTP and Chromium; the full suite now
+  passes 15 files and 80 tests. Desktop and 390px layouts were visually
+  inspected with no horizontal overflow. `npm run check` passed, and the
+  post-change stability smoke run completed 6/6 invocations with no flakiness.
+  The final credential-free `npm run demo` also passed all seven scenario rows
+  plus verification of nine privacy-safe evidence packages.
+- Audited the durable handoff set after `LIFECYCLE-UI-01`: `README.md`,
+  `REPORT.md`, `ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, `DECISIONS.md`, this
+  status file, and `evidence/README.md` now consistently describe the three
+  phases, approval gate, reset semantics, evidence retention, and current
+  15-file/81-test verification result.
+- Expanded the repository `continue` protocol so future sessions must read and
+  maintain the evaluator README, report, architecture, decisions, plan, status,
+  and evidence guide whenever their corresponding behavior changes.
+- Member search integration coverage passed for matching and empty results; the
+  full suite now passes 15 files and 81 tests. Search was exercised visually at
+  desktop and 390px widths with one matching card and no horizontal overflow.
+- The focused Automation Console suite passes all 10 tests after adding dynamic
+  SSN handoff guidance. The escalation card was visually inspected with the
+  member-specific command and all three operator steps visible without overflow.
 
 ## Files changed in the latest session
 
@@ -161,8 +267,15 @@ ephemeral loopback port.
   `packages/replay/test/*`
 - `packages/policy/package.json`, `packages/policy/src/*`,
   `packages/policy/test/*`
-- `cli/package.json`, `cli/src/*`
+- `packages/session/package.json`, `packages/session/src/*`,
+  `packages/session/test/*`
+- `apps/operator/package.json`, `apps/operator/src/*`
+- `cli/package.json`, `cli/src/*`, including demo and evidence verification
+- `evidence/submission/*`, `evidence/README.md`
+- `tests/submission-evidence.test.ts`
+- `.prettierignore`
 - `README.md`
+- `REPORT.md`
 - `docs/IMPLEMENTATION_PLAN.md`
 - `docs/STATUS.md`
 - `docs/DECISIONS.md`
@@ -170,8 +283,8 @@ ephemeral loopback port.
 ## Resume instruction
 
 Read this file and `docs/IMPLEMENTATION_PLAN.md`, run the health check above,
-then start `HANDOFF-01`. Pause on SSN intent before sensitive entry, retain the
-same live browser session, transfer an exclusive lease to the operator, resume
-only after release and checkpoint verification, and prove that no raw SSN enters
-model context or evidence. Before stopping, record exact verification results
-and update this snapshot.
+then inspect the final diff and repository publication state. All required
+milestones are complete; do not add optional scope unless the user requests it.
+Help the user commit/publish or address review feedback, preserving the existing
+evidence and safety boundaries. Before stopping, record any new verification
+results and update this snapshot.

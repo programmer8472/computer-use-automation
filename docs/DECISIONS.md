@@ -86,3 +86,48 @@ least one applied pixel mask. Finalized packages contain size and SHA-256
 records and reject subsequent writer mutations. This boundary complements, but
 does not replace, upstream data minimization in browser observations and model
 inputs.
+
+## ADR-010 — Represent human control as an exclusive browser lease
+
+Status: accepted — 2026-09-26
+
+The live browser has exactly one owner: automation, the operator, or neither
+while control is released. Automation navigates to the protected step and then
+releases ownership before entry. The operator UI changes lease state but never
+accepts the sensitive value; the human types directly into the unchanged target
+page. Automation can reacquire the lease only after operator release and a
+read-only same-session checkpoint succeeds. Failed verification leaves the lease
+released so the operator can claim it again.
+
+## ADR-011 — Expose only approved capabilities through the agent API
+
+Status: accepted — 2026-09-27
+
+The agent-facing catalog is an explicit allowlist, not a general browser-action
+endpoint. It publishes versioned input/output contracts for approved capability
+IDs, rejects unknown fields and capabilities before browser execution, and
+returns typed outputs alongside the existing structured result and evidence
+reference. Invocation uses deterministic replay with zero model calls.
+
+## ADR-012 — Measure stability without broadening replay authority
+
+Status: accepted — 2026-09-27
+
+The stability harness repeatedly invokes the same typed capability API against
+reset synthetic state. It records expected versus observed result signatures,
+independent application-state checks, pass rate, duration percentiles, and a
+flakiness signal. Stability observations are evidence only; they do not approve
+artifacts or alter runtime policy.
+
+## ADR-013 — Make the discovery-to-replay boundary a gated visual workflow
+
+Status: accepted — 2026-09-27
+
+The evaluator-facing page begins with an empty session lifecycle. A live
+provider-backed discovery creates a fresh trace and compiler draft; a named
+human reviewer must digest-lock that draft before update replay is enabled. The
+replay engine receives the exact approved session package and reports zero model
+calls separately from discovery's model-call count. Full reset restores the
+synthetic fixture and clears runtime lifecycle state, but does not delete audit
+evidence. This makes the architectural separation demonstrable without source
+inspection while preserving evidence immutability.

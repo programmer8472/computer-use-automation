@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "run-14593185-527d-4608-89af-92bfbb8700a5",
+  "goal": "Update member M-1001's phone number to the provided phone input",
+  "modelCallCount": 5,
+  "steps": [
+    {
+      "id": "step-1",
+      "observationBeforeRef": "observations/observation-1.json",
+      "observationBeforeDigest": "d236681d8c583ad2c64a997e51618efbb9be30746f3ba7882a7a51a274f51a15",
+      "action": {
+        "type": "click",
+        "target": {
+          "strategies": [
+            {
+              "type": "role",
+              "role": "link",
+              "name": "M-1001",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Exact accessible role and name selected during discovery"
+        }
+      },
+      "resolvedStrategyIndex": 0,
+      "observationAfterRef": "observations/observation-4.json",
+      "observationAfterDigest": "938ad5956419c13536a08c2159700bce58f90c92c391654507e1626b0861205e"
+    },
+    {
+      "id": "step-2",
+      "observationBeforeRef": "observations/observation-4.json",
+      "observationBeforeDigest": "938ad5956419c13536a08c2159700bce58f90c92c391654507e1626b0861205e",
+      "action": {
+        "type": "click",
+        "target": {
+          "strategies": [
+            {
+              "type": "role",
+              "role": "link",
+              "name": "Edit contact",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Exact accessible role and name selected during discovery"
+        }
+      },
+      "resolvedStrategyIndex": 0,
+      "observationAfterRef": "observations/observation-7.json",
+      "observationAfterDigest": "9f914804e4600097e5f48b69eecdba9550db383054121bd31a2e8bb2154833ed"
+    },
+    {
+      "id": "step-3",
+      "observationBeforeRef": "observations/observation-7.json",
+      "observationBeforeDigest": "9f914804e4600097e5f48b69eecdba9550db383054121bd31a2e8bb2154833ed",
+      "action": {
+        "type": "fill",
+        "target": {
+          "strategies": [
+            {
+              "type": "label",
+              "label": "Phone",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Exact accessible label selected during discovery"
+        },
+        "value": {
+          "kind": "input",
+          "name": "phone"
+        }
+      },
+      "resolvedStrategyIndex": 0,
+      "observationAfterRef": "observations/observation-10.json",
+      "observationAfterDigest": "9f914804e4600097e5f48b69eecdba9550db383054121bd31a2e8bb2154833ed"
+    },
+    {
+      "id": "step-4",
+      "observationBeforeRef": "observations/observation-10.json",
+      "observationBeforeDigest": "9f914804e4600097e5f48b69eecdba9550db383054121bd31a2e8bb2154833ed",
+      "action": {
+        "type": "click",
+        "target": {
+          "strategies": [
+            {
+              "type": "role",
+              "role": "button",
+              "name": "Save changes",
+              "exact": true
+            }
+          ],
+          "expectedCardinality": 1,
+          "rationale": "Exact accessible role and name selected during discovery"
+        }
+      },
+      "resolvedStrategyIndex": 0,
+      "observationAfterRef": "observations/observation-13.json",
+      "observationAfterDigest": "12c06da95f4e47ebeabd5a522cf9bd024e1e065f28a9d7a1d711da89f0ca6fd6"
+    }
+  ]
+}

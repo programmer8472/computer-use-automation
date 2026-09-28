@@ -2,5 +2,13 @@
   "name": "@computer-use/operator",
   "version": "0.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@computer-use/session": "0.0.0",
+    "express": "^5.2.1"
+  }
 }

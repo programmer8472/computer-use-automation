@@ -13,6 +13,7 @@ import type { Locator } from "playwright";
 import {
   assertActionAuthorized,
   assertDiscoveryRequestSafe,
+  discoveryInterventionReason,
   DiscoveryPolicyError,
 } from "./policy.js";
 import { parseDiscoveryToolCall } from "./tools.js";
@@ -76,6 +77,22 @@ export class DiscoveryRunner {
 
     try {
       assertDiscoveryRequestSafe(request.goal, request.inputs, request.policy);
+      const interventionReason = discoveryInterventionReason(request.goal);
+      if (interventionReason !== undefined) {
+        await this.#writeTrace(trace);
+        await this.#appendEvent(request.runId, {
+          type: "run_completed",
+          resultKind: "pending_escalation",
+          modelCallCount,
+        });
+        await this.#evidence.finalize();
+        return {
+          kind: "pending_escalation",
+          runId: request.runId,
+          modelCallCount,
+          reasonCode: interventionReason,
+        };
+      }
       this.#surface.assertUrlAllowed(request.startUrl);
       await this.#surface.page.goto(request.startUrl);
       let observation = await this.#recordObservation(request.runId);

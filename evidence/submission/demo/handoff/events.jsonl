@@ -1,0 +1,6 @@
+{"schemaVersion":"1.0.0","eventId":"event-0","runId":"demo-handoff","sequence":0,"timestamp":"2026-09-26T16:00:00.000Z","type":"run_started","mode":"replay"}
+{"schemaVersion":"1.0.0","eventId":"event-1","runId":"demo-handoff","sequence":1,"timestamp":"2026-09-26T16:00:00.000Z","type":"intervention","interventionId":"intervention-demo-handoff","status":"requested"}
+{"schemaVersion":"1.0.0","eventId":"event-2","runId":"demo-handoff","sequence":2,"timestamp":"2026-09-26T16:00:00.000Z","type":"intervention","interventionId":"intervention-demo-handoff","status":"claimed"}
+{"schemaVersion":"1.0.0","eventId":"event-3","runId":"demo-handoff","sequence":3,"timestamp":"2026-09-26T16:00:00.000Z","type":"intervention","interventionId":"intervention-demo-handoff","status":"released"}
+{"schemaVersion":"1.0.0","eventId":"event-4","runId":"demo-handoff","sequence":4,"timestamp":"2026-09-26T16:00:00.000Z","type":"intervention","interventionId":"intervention-demo-handoff","status":"resumed"}
+{"schemaVersion":"1.0.0","eventId":"event-5","runId":"demo-handoff","sequence":5,"timestamp":"2026-09-26T16:00:00.000Z","type":"run_completed","resultKind":"success","modelCallCount":0}

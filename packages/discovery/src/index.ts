@@ -3,6 +3,7 @@ export {
   DiscoveryPolicyError,
   assertActionAuthorized,
   assertDiscoveryRequestSafe,
+  discoveryInterventionReason,
 } from "./policy.js";
 export { DiscoveryRunner, type DiscoveryRunnerOptions } from "./runner.js";
 export { parseDiscoveryToolCall } from "./tools.js";

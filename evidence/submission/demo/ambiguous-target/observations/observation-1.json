@@ -1,0 +1,242 @@
+{
+  "url": "http://127.0.0.1:4174/contacts",
+  "title": "Contacts | Member Contacts Admin",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "elements": [
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Northbank Automation Console",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Add contact",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "form",
+      "role": "search",
+      "name": "Member search Search",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "input",
+      "role": "textbox",
+      "name": "Member search",
+      "inputType": "text",
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "button",
+      "role": "button",
+      "name": "Search",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "M-1001",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "M-1002",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "M-1003",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "View contact M-1001",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "summary",
+      "role": null,
+      "name": "Actions",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "View contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "View contact M-1002",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "summary",
+      "role": null,
+      "name": "Actions",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "View contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "View contact M-1003",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "summary",
+      "role": null,
+      "name": "Actions",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "View contact",
+      "inputType": null,
+      "visible": false,
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "success",
+  "code": "HANDOFF_RESUMED",
+  "sameBrowserPage": true,
+  "finalLeaseOwner": "automation",
+  "finalInterventionStatus": "resumed",
+  "checkpoint": true,
+  "modelCallCount": 0,
+  "sensitiveValueCaptured": false,
+  "transitions": [
+    "requested",
+    "claimed",
+    "released",
+    "resumed"
+  ]
+}

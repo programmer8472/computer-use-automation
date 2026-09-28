@@ -1,0 +1,58 @@
+{
+  "url": "http://127.0.0.1:4173/contacts/M-1001",
+  "title": "Avery Jordan | Member Contacts Admin",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "elements": [
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Northbank Member Contacts",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Scenario controls",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Contacts",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Edit contact",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Update SSN",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "tag": "a",
+      "role": "link",
+      "name": "Delete contact",
+      "inputType": null,
+      "visible": true,
+      "enabled": true
+    }
+  ]
+}

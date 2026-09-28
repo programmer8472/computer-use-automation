@@ -46,7 +46,7 @@ The model discovers. Policy is reviewed. Replay does not reason. An uncertain
 external effect is reconciled instead of repeated. A leased live session always
 has one accountable owner.
 
-## 3. Proposed repository shape
+## 3. Repository shape
 
 ```text
 apps/
@@ -65,12 +65,12 @@ cli/                     discover, approve, replay, reset, and demo commands
 evidence/                committed redacted demonstration packages
 ```
 
-This may initially be one npm workspace and one process. Package boundaries
-represent responsibilities, not required services.
+This implementation is one npm workspace and uses local processes. Package
+boundaries represent responsibilities, not required network services.
 
 ## 4. Target application
 
-The Member Contacts Admin application will provide:
+The Member Contacts Admin application provides:
 
 - Seeded, resettable synthetic members.
 - Search by member ID, name, email, or phone.
@@ -84,9 +84,12 @@ The Member Contacts Admin application will provide:
   raw value and stores only an `ssn_on_file` state. Automation can observe that
   the control exists but policy reserves entry for a human-held session lease.
 
-The interface should be realistically awkward but fair: no automation-specific
-test IDs, semantic labels where a real accessible application should have them,
-responsive reflow, and at least one nested or dialog-based interaction.
+The interface is deliberately awkward but fair: it avoids automation-specific
+test IDs, uses semantic labels where a real accessible application should have
+them, reflows responsively, and contains controlled ambiguous and dialog states.
+The evaluator-facing consolidated view preserves the same human search contract
+above its member cards, so ID, name, email, and phone lookup are available to a
+person as well as to the deterministic lookup capability.
 
 ## 5. Surface abstraction and responsive targeting
 
@@ -136,6 +139,15 @@ retain observed locator candidates and checkpoints, but permissions, risk
 classification, business outcomes, retries, and escalation rules come from
 reviewed configuration. A capability becomes executable only after schema
 validation and explicit approval.
+
+The evaluator-facing page exposes this boundary as a real gated lifecycle. A
+fresh session begins with no session capability. Live discovery uses the
+configured provider, writes redacted evidence, and automatically restores the
+seed target after the rehearsal. The compiler produces an in-memory draft; a
+named reviewer then digest-locks it. Only that approved package is supplied to
+the page's deterministic update replay. Discovery and replay call counts are
+reported separately. Reset clears the draft, approval, latest run, fault state,
+and target mutations, but deliberately preserves immutable evidence on disk.
 
 ## 7. Capability contract
 
@@ -235,6 +247,12 @@ browser session. Resume is allowed only after the operator releases control and
 replay re-observes the declared checkpoint. Human actions are audited in
 minimized, redacted form.
 
+The consolidated console does not spawn a GUI process from an HTTP request.
+Instead, an SSN escalation records the non-sensitive member ID and renders the
+exact `npm run handoff -- --member-id <id>` command plus the claim, protected
+edit, and verified-release steps. The launcher then creates the isolated headed
+session where lease transfer is enforced.
+
 The take-home implementation may use a local operator surface and short-lived
 token, but the state transition and same-session proof must be real.
 
@@ -250,10 +268,9 @@ Each run writes an evidence package containing:
 - Redacted DOM/accessibility evidence and masked screenshots where useful.
 - Discovery model-call count and replay model-call count.
 
-Committed evidence will demonstrate genuine discovery, changed-input replay,
-three viewport sizes, a business outcome, bounded recovery, fail-closed
-ambiguity, and same-session human handoff. Replay evidence must show zero model
-calls.
+Committed evidence demonstrates genuine discovery, changed-input replay, three
+viewport sizes, a business outcome, bounded recovery, fail-closed ambiguity, and
+same-session human handoff. Replay evidence records zero model calls.
 
 ## 12. Verification strategy
 
@@ -263,5 +280,5 @@ calls.
   evidence serialization.
 - End-to-end tests: discover/approve/replay, changed inputs, exceptional
   outcomes, and handoff/resume.
-- A single `npm run demo` command will reset synthetic state and exercise the
-  documented scenario matrix.
+- A single `npm run demo` command resets synthetic state, exercises the
+  documented scenario matrix, and verifies the committed evidence packages.

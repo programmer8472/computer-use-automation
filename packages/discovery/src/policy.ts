@@ -2,8 +2,10 @@ import type { Action, ExecutionPolicy } from "@computer-use/contracts";
 
 import type { DiscoveryInput } from "./types.js";
 
-const sensitiveGoalPattern =
-  /\b(?:\d{3}[- ]?\d{2}[- ]?\d{4}|ssn|social security|password|api key|access token|private key)\b/i;
+const protectedValuePattern =
+  /(?:\b\d{3}[- ]?\d{2}[- ]?\d{4}\b|\b(?:password|api key|access token|private key)\s*[:=]\s*\S+)/i;
+const sensitiveIntentPattern =
+  /\b(?:ssn|social security|password|api key|access token|private key)\b/i;
 const sensitiveTargetPattern =
   /\b(?:ssn|social security|password|secret|token|private key)\b/i;
 
@@ -17,15 +19,22 @@ export class DiscoveryPolicyError extends Error {
   }
 }
 
+export function discoveryInterventionReason(goal: string): string | undefined {
+  if (sensitiveIntentPattern.test(goal) && !protectedValuePattern.test(goal)) {
+    return "SENSITIVE_DATA_ENTRY_REQUIRED";
+  }
+  return undefined;
+}
+
 export function assertDiscoveryRequestSafe(
   goal: string,
   inputs: Readonly<Record<string, DiscoveryInput>>,
   policy: ExecutionPolicy,
 ): void {
-  if (sensitiveGoalPattern.test(goal)) {
+  if (protectedValuePattern.test(goal)) {
     throw new DiscoveryPolicyError(
       "SENSITIVE_GOAL_BLOCKED",
-      "The discovery goal contains sensitive-data language or a protected value",
+      "The discovery goal contains a protected value",
     );
   }
 

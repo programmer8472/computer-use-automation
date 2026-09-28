@@ -15,7 +15,7 @@ When the user's message is exactly or substantially `continue`, resume the
 project without requiring prior chat context:
 
 1. Read `docs/STATUS.md`, `docs/IMPLEMENTATION_PLAN.md`, `docs/ARCHITECTURE.md`,
-   and `docs/DECISIONS.md`.
+   `docs/DECISIONS.md`, `README.md`, `REPORT.md`, and `evidence/README.md`.
 2. Inspect the non-secret working tree and repository status.
 3. Run the health check recorded in `docs/STATUS.md` when it exists.
 4. Select the first unblocked task in `docs/IMPLEMENTATION_PLAN.md`, respecting
@@ -27,7 +27,11 @@ project without requiring prior chat context:
    - the current snapshot, tests, files changed, blockers, and next three tasks
      in `docs/STATUS.md`;
    - `docs/DECISIONS.md` if a significant design decision was made;
-   - `README.md` if a user-facing command or workflow changed.
+   - `docs/ARCHITECTURE.md` if system behavior or boundaries changed;
+   - `README.md` if a user-facing command or workflow changed;
+   - `REPORT.md` if a submission claim or limitation changed;
+   - `evidence/README.md` if evidence generation, retention, or verification
+     changed.
 
 Do not report a task complete unless its listed acceptance criteria have been
 verified. If the workspace and `docs/STATUS.md` disagree, investigate and make

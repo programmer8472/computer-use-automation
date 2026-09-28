@@ -1,0 +1,8 @@
+{
+  "kind": "genuine_model_discovery",
+  "runId": "run-14593185-527d-4608-89af-92bfbb8700a5",
+  "provider": "OpenAI Responses API",
+  "result": "success",
+  "modelCallCount": 5,
+  "selection": "Redacted mechanical trace selected from the verified live run"
+}

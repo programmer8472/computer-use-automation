@@ -13,17 +13,22 @@
     "cli"
   ],
   "scripts": {
-    "app:start": "npm run start --workspace @computer-use/contacts",
+    "app:start": "node --env-file-if-exists=.env --import tsx apps/contacts/src/server.ts",
     "browser:install": "playwright install chromium",
     "capability:approve": "node --import tsx cli/src/approve-capability.ts",
     "capability:compile": "node --import tsx cli/src/compile-capability.ts",
     "check": "npm run typecheck && npm run lint && npm run format:check",
     "data:reset": "npm run reset --workspace @computer-use/contacts",
     "discover": "node --env-file-if-exists=.env --import tsx cli/src/discover.ts",
+    "demo": "node --import tsx cli/src/demo.ts",
+    "evidence:curate-discovery": "node --import tsx cli/src/curate-discovery-evidence.ts",
+    "evidence:verify": "node --import tsx cli/src/verify-evidence.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "handoff": "node --import tsx cli/src/handoff.ts",
     "lint": "eslint .",
     "replay": "node --env-file-if-exists=.env --import tsx cli/src/replay.ts",
+    "stability": "node --import tsx cli/src/stability.ts",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit"
   },

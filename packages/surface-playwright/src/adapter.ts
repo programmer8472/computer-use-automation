@@ -282,8 +282,8 @@ export class PlaywrightSurfaceAdapter {
       if (check.state === "enabled") return locator.isEnabled();
       return !(await locator.isEnabled());
     } catch (error) {
-      if (error instanceof TargetNotFoundError && check.state === "hidden") {
-        return true;
+      if (error instanceof TargetNotFoundError) {
+        return check.state === "hidden";
       }
       throw error;
     }

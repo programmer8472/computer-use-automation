@@ -221,7 +221,7 @@ Acceptance:
 
 Verify: `npm test -- policy`
 
-### [ ] HANDOFF-01 — Implement same-session intervention and resume
+### [x] HANDOFF-01 — Implement same-session intervention and resume
 
 Depends on: POLICY-01, TARGET-02
 
@@ -240,9 +240,14 @@ Acceptance:
 
 Verify: `npm test -- handoff` plus the documented manual demonstration
 
+Verification note: the exclusive lease controller, local operator surface,
+same-page SSN coordinator, redacted transition audit, discovery intent routing,
+and automated same-session proof are complete. `npm test -- handoff` passes, and
+the user confirmed the headed two-tab workflow on 2026-09-26.
+
 ## Milestone 6: Submission evidence and documentation
 
-### [ ] DEMO-01 — Build the one-command scenario matrix
+### [x] DEMO-01 — Build the one-command scenario matrix
 
 Depends on: REPLAY-02, HANDOFF-01
 
@@ -260,7 +265,11 @@ Acceptance:
 
 Verify: `npm run demo && npm run evidence:verify`
 
-### [ ] DOCS-01 — Complete evaluator documentation
+Verification note: the demo was run twice successfully to prove resetability.
+All seven scenarios printed matching expected and actual outcomes, and all nine
+committed evidence packages passed manifest and sensitive-pattern verification.
+
+### [x] DOCS-01 — Complete evaluator documentation
 
 Depends on: DEMO-01
 
@@ -277,13 +286,45 @@ Acceptance:
 
 Verify: follow the README verbatim and run the full test suite
 
+Verification note: the README quick path, live discovery/replay path, evidence
+map, and handoff instructions are complete. `/REPORT.md` uses the seven exact
+assignment headings. Static checks and the current full 15-file, 81-test suite
+pass. The README also documents the gated visual lifecycle and full demo reset.
+
 ## Optional stretch work
 
 These tasks must not delay the milestones above:
 
 - `[ ]` PORTABILITY-01 — Add a second tenant/layout overlay and compatibility
   probe.
-- `[ ]` CATALOG-01 — Expose approved capabilities through a small agent-facing
+- `[x]` CATALOG-01 — Expose approved capabilities through a small agent-facing
   catalog.
-- `[ ]` STABILITY-01 — Run repeated deterministic replay and summarize
+- `[x]` STABILITY-01 — Run repeated deterministic replay and summarize
   stability.
+- `[x]` LIFECYCLE-UI-01 — Demonstrate live discovery, artifact generation,
+  explicit approval, and zero-model-call replay as one gated visual workflow.
+- `[x]` WORKSPACE-SEARCH-01 — Preserve human member search in the consolidated
+  one-page application, including match counts, empty results, and clear.
+- `[x]` HANDOFF-UX-01 — Put the member-specific handoff command and operator
+  steps directly in the sensitive-action escalation result.
+
+Verification note: the one-page Automation Console accepts the reviewed phone
+update and member lookup intents. Its two-column workspace provides inline
+member create/update/delete controls on the left and commands, deterministic
+scenarios, and typed outcomes on the right. Its replay path performs zero model
+calls and has real-browser integration coverage. `GET /api/capabilities`
+publishes the approved typed contracts and
+`POST /api/capabilities/{capabilityId}/invoke` validates and invokes them. The
+credential-free `npm run stability -- --runs 5` check completed 15/15 attempts
+with a 100% pass rate and no observed flakiness. The interactive page now starts
+at Phase 1, performs a real provider-backed discovery, displays its semantic
+trace and model-call count, compiles a draft, requires named digest-bound
+approval, and passes that exact approved package to Phase 3 replay. Full reset
+restores seed contacts and clears all session lifecycle state while retaining
+audit evidence. A real-browser integration test covers the entire transition.
+Verification: `npm run check`, `npm test`, `npm run demo`, and
+`npm run stability -- --runs 5`; the latest full regression run passed 15 files
+and 81 tests. Member search is covered by HTTP integration tests and responsive
+desktop/390px visual inspection. SSN escalation coverage verifies the dynamic
+member ID, visible launcher command, and claim/release instructions; the result
+card was also visually inspected.

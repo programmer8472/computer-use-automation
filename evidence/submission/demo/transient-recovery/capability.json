@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "1.0.0",
+  "capability": {
+    "id": "contact.search",
+    "name": "Search for a member",
+    "revision": 1
+  },
+  "approval": {
+    "status": "approved",
+    "approvedBy": "demo-reviewer",
+    "approvedAt": "2026-09-26T16:00:00.000Z",
+    "digest": "688f0a337d0bbbe5fe830be618ba408b99579ce38a0a1c8c3322671db46da2b4"
+  },
+  "target": {
+    "appFamily": "member-contacts",
+    "surface": "legacy_web",
+    "semanticVersionRange": ">=1.0.0 <2.0.0",
+    "responsiveVariants": [
+      "wide"
+    ]
+  },
+  "inputs": {},
+  "outputs": {
+    "found": {
+      "description": "Whether the member was found",
+      "required": true,
+      "dataClass": "public",
+      "type": "boolean"
+    }
+  },
+  "steps": [
+    {
+      "id": "search-member",
+      "description": "Navigate to a reviewed member search",
+      "action": {
+        "type": "navigate",
+        "urlTemplate": "http://127.0.0.1:4174/contacts?q=M-1001"
+      },
+      "preconditions": [
+        {
+          "kind": "url",
+          "pattern": "/contacts"
+        }
+      ],
+      "settleConditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "role",
+                "role": "link",
+                "name": "M-1001",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Reviewed member result after search"
+          },
+          "state": "visible"
+        }
+      ],
+      "postconditions": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "role",
+                "role": "link",
+                "name": "M-1001",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Reviewed member result after search"
+          },
+          "state": "visible"
+        }
+      ],
+      "timeoutMs": 100,
+      "effect": "read",
+      "risk": "low",
+      "retry": {
+        "mode": "safe_retry",
+        "maxAttempts": 2,
+        "backoffMs": 0
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "kind": "success",
+      "code": "SUCCESS",
+      "finalChecks": [
+        {
+          "kind": "element",
+          "target": {
+            "strategies": [
+              {
+                "type": "role",
+                "role": "link",
+                "name": "M-1001",
+                "exact": true
+              }
+            ],
+            "expectedCardinality": 1,
+            "rationale": "Reviewed member result after search"
+          },
+          "state": "visible"
+        }
+      ],
+      "outputBindings": {
+        "found": "member-found"
+      }
+    }
+  ],
+  "policy": {
+    "allowedOrigins": [
+      "http://127.0.0.1:4174"
+    ],
+    "allowedRoutes": [
+      "/contacts",
+      "/contacts/*"
+    ],
+    "allowedActions": [
+      "navigate"
+    ],
+    "blockedDataClasses": [
+      "sensitive",
+      "credential",
+      "full_ssn"
+    ],
+    "maximumRecoveryAttempts": 1,
+    "requiredApprovals": [
+      {
+        "risk": "high",
+        "authority": "human_operator"
+      },
+      {
+        "risk": "critical",
+        "authority": "human_operator"
+      }
+    ]
+  },
+  "provenance": {
+    "discoveryRunId": "transient-search-review",
+    "evidenceRefs": [
+      "evidence/submission/discovery-live/manifest.json"
+    ],
+    "modelCallCount": 1
+  }
+}

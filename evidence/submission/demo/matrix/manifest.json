@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "demo-matrix",
+  "createdAt": "2026-09-26T16:00:00.000Z",
+  "files": [
+    {
+      "path": "summary.json",
+      "mediaType": "application/json",
+      "bytes": 1659,
+      "sha256": "35caf01555c8ce65d8e03a14ea23aed3ee6735ea71de5d51c92184d1f3117e1a",
+      "redaction": "structured"
+    }
+  ]
+}

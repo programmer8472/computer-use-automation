@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0.0",
+  "runId": "run-14593185-527d-4608-89af-92bfbb8700a5",
+  "createdAt": "2026-09-25T20:33:57.880Z",
+  "files": [
+    {
+      "path": "events.jsonl",
+      "mediaType": "application/x-ndjson",
+      "bytes": 3828,
+      "sha256": "0a22bef162c1d06d00286599bc3eae35c6b60b18e2f6dc242ae0ea4fa56e5a10",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-1.json",
+      "mediaType": "application/json",
+      "bytes": 4753,
+      "sha256": "bca371c3452d2497fbca30ad205e60e2212f55f2c67e1466efe3e99cdb40cb33",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-10.json",
+      "mediaType": "application/json",
+      "bytes": 1918,
+      "sha256": "4dca0e7741dae47b6e0d03ddd221d5e492d1aadba217097b80c3b6c6c4e7b50f",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-13.json",
+      "mediaType": "application/json",
+      "bytes": 1283,
+      "sha256": "22a4d1cb1d73e7c5b4995847e409f019671c5e486a7ddc400981e50e92ee6af2",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-4.json",
+      "mediaType": "application/json",
+      "bytes": 1114,
+      "sha256": "50cb6180691671f489e151f3d85443c702a2fea5bad52eddeaf971bc36c1581c",
+      "redaction": "structured"
+    },
+    {
+      "path": "observations/observation-7.json",
+      "mediaType": "application/json",
+      "bytes": 1918,
+      "sha256": "4dca0e7741dae47b6e0d03ddd221d5e492d1aadba217097b80c3b6c6c4e7b50f",
+      "redaction": "structured"
+    },
+    {
+      "path": "summary.json",
+      "mediaType": "application/json",
+      "bytes": 259,
+      "sha256": "c269512cdb9aa01733d7bf8b29dc2b4ab892ea9b21ad58a49700ccc4d1a65331",
+      "redaction": "structured"
+    },
+    {
+      "path": "trace.json",
+      "mediaType": "application/json",
+      "bytes": 3405,
+      "sha256": "6a4c80598a2bbadc696882dc30179e2691582e7f49e9838c5e863471db7a8833",
+      "redaction": "structured"
+    }
+  ]
+}
